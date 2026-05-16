@@ -8,3 +8,5 @@ uploads/
 *.exe
 a.cpp
 .vercel/
+
+.vercel

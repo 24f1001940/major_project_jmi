@@ -6,6 +6,8 @@ output
 uploads
 dataset_videos
 models
+app.py
+requirements.txt
 *.log
 *.exe
 *.pyc
