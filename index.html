@@ -7,244 +7,1265 @@
     <style>
       :root {
         color-scheme: dark;
-        --bg: #10131a;
-        --panel: #171c27;
-        --line: #2a3343;
-        --text: #f8fafc;
-        --muted: #a9b8ca;
+        --bg: #0f1217;
+        --panel: #171c24;
+        --panel-2: #1c232d;
+        --line: #2c3543;
+        --line-2: #3b4657;
+        --text: #f6f8fb;
+        --muted: #aab6c7;
+        --soft: #d5dce7;
         --accent: #0f8b8d;
         --accent-2: #f2a541;
+        --danger: #d95d39;
+        --ok: #6fbf73;
       }
 
       * {
         box-sizing: border-box;
       }
 
+      html,
+      body {
+        min-height: 100%;
+      }
+
       body {
         margin: 0;
         font-family: Inter, "Segoe UI", Arial, sans-serif;
-        background: radial-gradient(circle at 15% 0%, rgba(15, 139, 141, 0.2), transparent 28%),
-          radial-gradient(circle at 82% 8%, rgba(242, 165, 65, 0.16), transparent 24%),
-          var(--bg);
+        background: var(--bg);
         color: var(--text);
       }
 
-      main {
-        width: min(1120px, calc(100% - 32px));
-        margin: 0 auto;
-        padding: 48px 0;
+      button,
+      input,
+      select {
+        font: inherit;
       }
 
-      header {
-        display: flex;
-        justify-content: space-between;
-        gap: 20px;
-        align-items: center;
-        margin-bottom: 42px;
-      }
-
-      .brand {
-        color: var(--muted);
+      button {
+        border: 1px solid var(--line-2);
+        border-radius: 8px;
+        background: var(--panel-2);
+        color: var(--text);
+        cursor: pointer;
+        min-height: 40px;
+        padding: 0 13px;
         font-weight: 700;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
       }
 
-      .badge {
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        color: var(--muted);
-        padding: 8px 12px;
-        background: rgba(23, 28, 39, 0.8);
+      button.primary {
+        background: var(--accent);
+        border-color: var(--accent);
       }
 
-      .hero {
+      button.warning {
+        background: #2b2420;
+        border-color: #6d4b2a;
+        color: #ffd99b;
+      }
+
+      button:disabled {
+        cursor: not-allowed;
+        opacity: 0.45;
+      }
+
+      input[type="file"],
+      select,
+      input[type="range"] {
+        width: 100%;
+      }
+
+      select {
+        min-height: 40px;
+        border: 1px solid var(--line-2);
+        border-radius: 8px;
+        background: #111721;
+        color: var(--text);
+        padding: 0 10px;
+      }
+
+      input[type="file"] {
+        border: 1px dashed var(--line-2);
+        border-radius: 8px;
+        padding: 11px;
+        background: #111721;
+        color: var(--soft);
+      }
+
+      label {
         display: grid;
-        grid-template-columns: 1.1fr 0.9fr;
-        gap: 28px;
-        align-items: stretch;
+        gap: 8px;
+        color: var(--soft);
+        font-size: 13px;
+        font-weight: 700;
       }
 
-      .panel {
+      .app {
+        min-height: 100vh;
+        display: grid;
+        grid-template-rows: auto 1fr;
+      }
+
+      .topbar {
+        border-bottom: 1px solid var(--line);
+        background: #121720;
+        padding: 14px 18px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+
+      .title-block {
+        min-width: 0;
+      }
+
+      .title-block h1 {
+        margin: 0;
+        font-size: clamp(20px, 3vw, 30px);
+        letter-spacing: 0;
+      }
+
+      .title-block p {
+        margin: 4px 0 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .owner {
+        flex: 0 0 auto;
+        border: 1px solid var(--line-2);
+        border-radius: 999px;
+        color: var(--soft);
+        padding: 7px 11px;
+        font-weight: 800;
+        font-size: 12px;
+        letter-spacing: 0.08em;
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: 300px minmax(0, 1fr);
+        min-height: 0;
+      }
+
+      .sidebar {
+        border-right: 1px solid var(--line);
+        background: #141922;
+        padding: 16px;
+        display: grid;
+        align-content: start;
+        gap: 16px;
+      }
+
+      .control-group {
+        display: grid;
+        gap: 12px;
+      }
+
+      .button-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+
+      .button-row.three {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+
+      .readout {
         border: 1px solid var(--line);
         border-radius: 8px;
-        background: rgba(23, 28, 39, 0.92);
-        padding: 28px;
-      }
-
-      h1 {
-        font-size: clamp(38px, 7vw, 72px);
-        line-height: 0.98;
-        letter-spacing: 0;
-        margin: 0 0 20px;
-      }
-
-      h2 {
-        font-size: 22px;
-        margin: 0 0 18px;
-      }
-
-      p {
+        padding: 12px;
+        background: #111721;
         color: var(--muted);
-        font-size: 17px;
-        line-height: 1.65;
-        margin: 0 0 22px;
+        font-size: 13px;
+        line-height: 1.45;
       }
 
-      .actions {
+      .readout strong {
+        color: var(--text);
+      }
+
+      .content {
+        padding: 16px;
+        display: grid;
+        gap: 16px;
+        min-width: 0;
+      }
+
+      .status-strip {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        padding: 12px 14px;
         display: flex;
-        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
         gap: 12px;
-        margin-top: 28px;
+        color: var(--soft);
       }
 
-      a {
-        color: inherit;
-      }
-
-      .button {
+      .status-pill {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        min-height: 44px;
-        padding: 0 16px;
-        border-radius: 8px;
-        text-decoration: none;
-        font-weight: 750;
-        border: 1px solid var(--line);
-        background: #1b2330;
+        min-height: 28px;
+        border: 1px solid var(--line-2);
+        border-radius: 999px;
+        padding: 0 10px;
+        color: var(--muted);
+        background: #111721;
+        font-size: 12px;
+        font-weight: 800;
       }
 
-      .button.primary {
-        background: var(--accent);
-        border-color: var(--accent);
-        color: white;
-      }
-
-      .grid {
+      .metrics {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 14px;
-        margin-top: 28px;
+        grid-template-columns: repeat(7, minmax(110px, 1fr));
+        gap: 10px;
       }
 
       .metric {
         border: 1px solid var(--line);
         border-radius: 8px;
-        padding: 16px;
-        background: rgba(16, 19, 26, 0.58);
+        background: var(--panel);
+        padding: 12px;
+        min-width: 0;
       }
 
       .metric strong {
         display: block;
-        font-size: 26px;
-        margin-bottom: 6px;
+        font-size: clamp(20px, 2.4vw, 28px);
+        line-height: 1.1;
+        overflow-wrap: anywhere;
       }
 
       .metric span {
+        display: block;
         color: var(--muted);
+        font-size: 12px;
+        margin-top: 6px;
+      }
+
+      .main-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.45fr) minmax(300px, 0.8fr);
+        gap: 16px;
+        align-items: start;
+      }
+
+      .surface {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        min-width: 0;
+      }
+
+      .surface-head {
+        min-height: 48px;
+        border-bottom: 1px solid var(--line);
+        padding: 12px 14px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .surface-head h2 {
+        font-size: 15px;
+        margin: 0;
+        letter-spacing: 0;
+      }
+
+      .surface-body {
+        padding: 14px;
+      }
+
+      .video-wrap {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        background: #080b10;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      canvas#preview {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+
+      .canvas-empty {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        color: var(--muted);
+        padding: 18px;
+        text-align: center;
+        pointer-events: none;
+      }
+
+      video {
+        display: none;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
         font-size: 13px;
       }
 
-      .flow {
+      th,
+      td {
+        border-bottom: 1px solid var(--line);
+        padding: 9px 8px;
+        text-align: left;
+        color: var(--soft);
+      }
+
+      th {
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      tr:last-child td {
+        border-bottom: 0;
+      }
+
+      .empty-state {
+        color: var(--muted);
+        padding: 12px 0;
+        font-size: 13px;
+      }
+
+      .chart-grid {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 14px;
-        margin-top: 14px;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
       }
 
-      .step {
-        border: 1px solid var(--line);
-        border-radius: 8px;
-        padding: 16px;
-        color: var(--muted);
-        background: rgba(23, 28, 39, 0.72);
-      }
-
-      .step strong {
+      .chart {
+        width: 100%;
+        height: 190px;
         display: block;
-        color: var(--text);
-        margin-bottom: 8px;
       }
 
-      footer {
-        border-top: 1px solid var(--line);
-        margin-top: 42px;
-        padding-top: 22px;
+      .event-log {
+        max-height: 260px;
+        overflow: auto;
+      }
+
+      .footer-note {
         color: var(--muted);
+        font-size: 12px;
+      }
+
+      @media (max-width: 1180px) {
+        .metrics {
+          grid-template-columns: repeat(4, minmax(110px, 1fr));
+        }
+
+        .main-grid,
+        .chart-grid {
+          grid-template-columns: 1fr;
+        }
       }
 
       @media (max-width: 820px) {
-        header,
-        .hero {
+        .layout {
           grid-template-columns: 1fr;
-          display: grid;
         }
 
-        .grid,
-        .flow {
-          grid-template-columns: 1fr 1fr;
+        .sidebar {
+          border-right: 0;
+          border-bottom: 1px solid var(--line);
+        }
+
+        .metrics {
+          grid-template-columns: repeat(2, minmax(120px, 1fr));
+        }
+
+        .topbar {
+          align-items: flex-start;
+          flex-direction: column;
         }
       }
 
-      @media (max-width: 520px) {
-        .grid,
-        .flow {
+      @media (max-width: 480px) {
+        .metrics,
+        .button-row,
+        .button-row.three {
           grid-template-columns: 1fr;
         }
       }
     </style>
   </head>
   <body>
-    <main>
-      <header>
-        <div class="brand">MOHD SAQIB</div>
-        <div class="badge">Major Project 2026</div>
+    <div class="app">
+      <header class="topbar">
+        <div class="title-block">
+          <h1>Vision-Based Queue Analytics</h1>
+          <p>Prepared by MOHD SAQIB</p>
+        </div>
+        <div class="owner">MOHD SAQIB</div>
       </header>
 
-      <section class="hero">
-        <div class="panel">
-          <h1>Vision-Based Queue Analytics</h1>
-          <p>
-            Real-time queue length and waiting-time estimation using YOLOv8 person detection,
-            multi-object tracking, polygon ROI filtering, queue direction projection, and adaptive
-            EMA service-time modeling.
-          </p>
-          <div class="actions">
-            <a class="button primary" href="https://github.com/24f1001940/major_project_jmi">GitHub Repository</a>
-            <a class="button" href="#workflow">View Workflow</a>
+      <div class="layout">
+        <aside class="sidebar">
+          <div class="control-group">
+            <label>
+              Video Input
+              <input id="videoFile" type="file" accept="video/*" />
+            </label>
+            <div class="button-row">
+              <button id="startBtn" class="primary" disabled>Start</button>
+              <button id="pauseBtn" disabled>Pause</button>
+            </div>
+            <div class="button-row">
+              <button id="resetBtn" class="warning" disabled>Reset</button>
+              <button id="fullRoiBtn" disabled>Full ROI</button>
+            </div>
+            <button id="drawRoiBtn" disabled>Draw ROI</button>
           </div>
-        </div>
 
-        <div class="panel">
-          <h2>Project Scope</h2>
-          <p>
-            The full application runs locally as a Streamlit dashboard and opens an OpenCV processing
-            window for ROI and queue direction selection. This Vercel deployment presents the project
-            interface and deployment page for review.
-          </p>
-          <div class="grid">
-            <div class="metric"><strong>0.933</strong><span>mAP@0.5</span></div>
-            <div class="metric"><strong>0.844</strong><span>Precision</span></div>
-            <div class="metric"><strong>0.869</strong><span>Recall</span></div>
-            <div class="metric"><strong>65%</strong><span>Prediction consistency</span></div>
+          <div class="control-group">
+            <label>
+              Detection Confidence <span id="confidenceText">0.50</span>
+              <input id="confidence" type="range" min="0.2" max="0.9" step="0.05" value="0.5" />
+            </label>
+            <label>
+              Inference Interval <span id="intervalText">450 ms</span>
+              <input id="interval" type="range" min="150" max="1200" step="50" value="450" />
+            </label>
+            <label>
+              Queue Front
+              <select id="frontSelect">
+                <option value="top">Top</option>
+                <option value="bottom" selected>Bottom</option>
+                <option value="left">Left</option>
+                <option value="right">Right</option>
+              </select>
+            </label>
           </div>
-        </div>
-      </section>
 
-      <section id="workflow" class="panel" style="margin-top: 28px">
-        <h2>Workflow</h2>
-        <div class="flow">
-          <div class="step"><strong>Video Input</strong>Upload CCTV or recorded queue footage.</div>
-          <div class="step"><strong>Detection</strong>YOLOv8 detects people in selected frames.</div>
-          <div class="step"><strong>Tracking</strong>Persistent IDs maintain queue identity.</div>
-          <div class="step"><strong>Analytics</strong>ROI, direction, EMA, and timestamps estimate queue state.</div>
-        </div>
-      </section>
+          <div class="control-group">
+            <button id="downloadHistoryBtn" disabled>Download History CSV</button>
+            <button id="downloadEventsBtn" disabled>Download Events CSV</button>
+          </div>
 
-      <footer>
-        Prepared by MOHD SAQIB. Local command: <code>.\.venv\Scripts\python.exe app.py</code>
-      </footer>
-    </main>
+          <div class="readout">
+            <strong>Runtime</strong><br />
+            <span id="runtimeText">Load a video to begin.</span>
+          </div>
+          <div class="footer-note">Browser deployment for Vercel. Local Python app remains available in the repository.</div>
+        </aside>
+
+        <main class="content">
+          <section class="status-strip">
+            <span id="statusText">Waiting for video</span>
+            <span class="status-pill" id="modelStatus">Detector idle</span>
+          </section>
+
+          <section class="metrics">
+            <div class="metric"><strong id="queueMetric">0</strong><span>Queue Length</span></div>
+            <div class="metric"><strong id="avgWaitMetric">0s</strong><span>Average Wait</span></div>
+            <div class="metric"><strong id="fpsMetric">0.0</strong><span>Processing FPS</span></div>
+            <div class="metric"><strong id="serviceMetric">Learning</strong><span>EMA Service</span></div>
+            <div class="metric"><strong id="seenMetric">0</strong><span>People Seen</span></div>
+            <div class="metric"><strong id="accuracyMetric">N/A</strong><span>Prediction Accuracy</span></div>
+            <div class="metric"><strong id="timeMetric">0.0s</strong><span>Video Time</span></div>
+          </section>
+
+          <section class="main-grid">
+            <div class="surface">
+              <div class="surface-head">
+                <h2>Processed Video Preview</h2>
+                <span class="status-pill" id="roiStatus">ROI: full frame</span>
+              </div>
+              <div class="surface-body">
+                <div class="video-wrap">
+                  <canvas id="preview" width="1280" height="720"></canvas>
+                  <div class="canvas-empty" id="canvasEmpty">Upload a video file</div>
+                </div>
+                <video id="video" muted playsinline></video>
+              </div>
+            </div>
+
+            <div class="surface">
+              <div class="surface-head">
+                <h2>Active Queue</h2>
+                <span class="status-pill" id="trackStatus">0 tracks</span>
+              </div>
+              <div class="surface-body">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Pos</th>
+                      <th>Wait</th>
+                      <th>Pred</th>
+                      <th>Conf</th>
+                    </tr>
+                  </thead>
+                  <tbody id="activeBody"></tbody>
+                </table>
+                <div class="empty-state" id="activeEmpty">No active tracks.</div>
+              </div>
+            </div>
+          </section>
+
+          <section class="chart-grid">
+            <div class="surface">
+              <div class="surface-head"><h2>Queue Length Over Time</h2></div>
+              <div class="surface-body"><canvas class="chart" id="queueChart"></canvas></div>
+            </div>
+            <div class="surface">
+              <div class="surface-head"><h2>Average Waiting Time</h2></div>
+              <div class="surface-body"><canvas class="chart" id="waitChart"></canvas></div>
+            </div>
+          </section>
+
+          <section class="surface">
+            <div class="surface-head">
+              <h2>Events</h2>
+              <span class="status-pill" id="eventStatus">0 events</span>
+            </div>
+            <div class="surface-body event-log">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Time</th>
+                    <th>Event</th>
+                    <th>Track</th>
+                    <th>Details</th>
+                  </tr>
+                </thead>
+                <tbody id="eventsBody"></tbody>
+              </table>
+              <div class="empty-state" id="eventsEmpty">No events recorded.</div>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd@2.2.3/dist/coco-ssd.min.js"></script>
+    <script>
+      const state = {
+        model: null,
+        modelPromise: null,
+        running: false,
+        processing: false,
+        fileLoaded: false,
+        roiMode: false,
+        roi: [],
+        tracks: new Map(),
+        nextId: 1,
+        totalSeen: new Set(),
+        events: [],
+        history: [],
+        accuracies: [],
+        lastInferenceAt: 0,
+        lastHistoryAt: 0,
+        lastExitTime: null,
+        emaService: null,
+        fps: 0,
+        lastFrameDuration: 0,
+        activeRows: [],
+        videoObjectUrl: null
+      };
+
+      const elements = {
+        videoFile: document.getElementById("videoFile"),
+        video: document.getElementById("video"),
+        preview: document.getElementById("preview"),
+        canvasEmpty: document.getElementById("canvasEmpty"),
+        startBtn: document.getElementById("startBtn"),
+        pauseBtn: document.getElementById("pauseBtn"),
+        resetBtn: document.getElementById("resetBtn"),
+        drawRoiBtn: document.getElementById("drawRoiBtn"),
+        fullRoiBtn: document.getElementById("fullRoiBtn"),
+        confidence: document.getElementById("confidence"),
+        interval: document.getElementById("interval"),
+        confidenceText: document.getElementById("confidenceText"),
+        intervalText: document.getElementById("intervalText"),
+        frontSelect: document.getElementById("frontSelect"),
+        statusText: document.getElementById("statusText"),
+        modelStatus: document.getElementById("modelStatus"),
+        runtimeText: document.getElementById("runtimeText"),
+        roiStatus: document.getElementById("roiStatus"),
+        queueMetric: document.getElementById("queueMetric"),
+        avgWaitMetric: document.getElementById("avgWaitMetric"),
+        fpsMetric: document.getElementById("fpsMetric"),
+        serviceMetric: document.getElementById("serviceMetric"),
+        seenMetric: document.getElementById("seenMetric"),
+        accuracyMetric: document.getElementById("accuracyMetric"),
+        timeMetric: document.getElementById("timeMetric"),
+        activeBody: document.getElementById("activeBody"),
+        activeEmpty: document.getElementById("activeEmpty"),
+        trackStatus: document.getElementById("trackStatus"),
+        eventsBody: document.getElementById("eventsBody"),
+        eventsEmpty: document.getElementById("eventsEmpty"),
+        eventStatus: document.getElementById("eventStatus"),
+        queueChart: document.getElementById("queueChart"),
+        waitChart: document.getElementById("waitChart"),
+        downloadHistoryBtn: document.getElementById("downloadHistoryBtn"),
+        downloadEventsBtn: document.getElementById("downloadEventsBtn")
+      };
+
+      const ctx = elements.preview.getContext("2d");
+
+      function setStatus(text, modelText) {
+        elements.statusText.textContent = text;
+        if (modelText) {
+          elements.modelStatus.textContent = modelText;
+        }
+      }
+
+      function formatSeconds(value) {
+        if (!Number.isFinite(value)) {
+          return "0s";
+        }
+        return `${Math.max(0, value).toFixed(1)}s`;
+      }
+
+      function resetRuntimeData(keepVideo) {
+        state.running = false;
+        state.processing = false;
+        state.roiMode = false;
+        state.tracks.clear();
+        state.nextId = 1;
+        state.totalSeen.clear();
+        state.events = [];
+        state.history = [];
+        state.accuracies = [];
+        state.lastInferenceAt = 0;
+        state.lastHistoryAt = 0;
+        state.lastExitTime = null;
+        state.emaService = null;
+        state.fps = 0;
+        state.lastFrameDuration = 0;
+        state.activeRows = [];
+        if (!keepVideo) {
+          state.fileLoaded = false;
+          state.roi = [];
+          elements.canvasEmpty.style.display = "grid";
+          elements.video.removeAttribute("src");
+          elements.video.load();
+        }
+        updateButtons();
+        updateMetrics();
+        updateTables();
+        drawCharts();
+      }
+
+      function updateButtons() {
+        elements.startBtn.disabled = !state.fileLoaded || state.running;
+        elements.pauseBtn.disabled = !state.running;
+        elements.resetBtn.disabled = !state.fileLoaded;
+        elements.drawRoiBtn.disabled = !state.fileLoaded || state.running;
+        elements.fullRoiBtn.disabled = !state.fileLoaded || state.running;
+        elements.downloadHistoryBtn.disabled = state.history.length === 0;
+        elements.downloadEventsBtn.disabled = state.events.length === 0;
+      }
+
+      function fitCanvasToVideo() {
+        const width = elements.video.videoWidth || 1280;
+        const height = elements.video.videoHeight || 720;
+        elements.preview.width = width;
+        elements.preview.height = height;
+        if (state.roi.length !== 4) {
+          setFullRoi();
+        }
+      }
+
+      function setFullRoi() {
+        state.roiMode = false;
+        const width = elements.preview.width;
+        const height = elements.preview.height;
+        state.roi = [
+          { x: 0, y: 0 },
+          { x: width, y: 0 },
+          { x: width, y: height },
+          { x: 0, y: height }
+        ];
+        elements.roiStatus.textContent = "ROI: full frame";
+        drawFrame();
+      }
+
+      function loadVideoFile(file) {
+        resetRuntimeData(false);
+        if (state.videoObjectUrl) {
+          URL.revokeObjectURL(state.videoObjectUrl);
+        }
+        const url = URL.createObjectURL(file);
+        state.videoObjectUrl = url;
+        elements.video.src = url;
+        elements.video.onloadedmetadata = () => {
+          state.fileLoaded = true;
+          fitCanvasToVideo();
+          elements.canvasEmpty.style.display = "none";
+          setStatus(`Loaded ${file.name}`, "Detector idle");
+          elements.runtimeText.textContent = "Ready";
+          drawFrame();
+          updateButtons();
+        };
+      }
+
+      async function loadModel() {
+        if (state.model) {
+          return state.model;
+        }
+        if (!state.modelPromise) {
+          setStatus("Loading browser detector", "Loading detector");
+          state.modelPromise = cocoSsd.load({ base: "lite_mobilenet_v2" });
+        }
+        state.model = await state.modelPromise;
+        setStatus("Detector ready", "Detector ready");
+        return state.model;
+      }
+
+      function drawFrame() {
+        const canvas = elements.preview;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        if (state.fileLoaded && elements.video.readyState >= 2) {
+          ctx.drawImage(elements.video, 0, 0, canvas.width, canvas.height);
+        } else {
+          ctx.fillStyle = "#080b10";
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+        drawRoi();
+        drawTracks();
+      }
+
+      function drawRoi() {
+        if (state.roi.length === 0) {
+          return;
+        }
+        ctx.save();
+        ctx.lineWidth = Math.max(2, elements.preview.width / 640);
+        ctx.strokeStyle = "#f2a541";
+        ctx.fillStyle = "rgba(242, 165, 65, 0.08)";
+        ctx.beginPath();
+        ctx.moveTo(state.roi[0].x, state.roi[0].y);
+        for (let i = 1; i < state.roi.length; i += 1) {
+          ctx.lineTo(state.roi[i].x, state.roi[i].y);
+        }
+        if (state.roi.length === 4) {
+          ctx.closePath();
+          ctx.fill();
+        }
+        ctx.stroke();
+        state.roi.forEach((point, index) => {
+          ctx.beginPath();
+          ctx.arc(point.x, point.y, 7, 0, Math.PI * 2);
+          ctx.fillStyle = index === 0 ? "#0f8b8d" : "#f2a541";
+          ctx.fill();
+        });
+        ctx.restore();
+      }
+
+      function drawTracks() {
+        ctx.save();
+        ctx.font = `${Math.max(13, elements.preview.width / 70)}px Segoe UI, Arial`;
+        ctx.lineWidth = Math.max(2, elements.preview.width / 640);
+        for (const row of state.activeRows) {
+          const track = row.track;
+          const color = row.position === 1 ? "#6fbf73" : "#0f8b8d";
+          ctx.strokeStyle = color;
+          ctx.fillStyle = color;
+          ctx.strokeRect(track.x, track.y, track.w, track.h);
+          const text = `ID:${track.id} Pos:${row.position} W:${row.waitText} P:${row.predictionText}`;
+          const textY = Math.max(18, track.y - 8);
+          const textWidth = ctx.measureText(text).width + 12;
+          ctx.fillStyle = "rgba(8, 11, 16, 0.84)";
+          ctx.fillRect(track.x, textY - 17, textWidth, 22);
+          ctx.fillStyle = "#f6f8fb";
+          ctx.fillText(text, track.x + 6, textY);
+          ctx.beginPath();
+          ctx.arc(track.cx, track.cy, 5, 0, Math.PI * 2);
+          ctx.fillStyle = color;
+          ctx.fill();
+        }
+        ctx.restore();
+      }
+
+      function pointInPolygon(point, polygon) {
+        if (polygon.length !== 4) {
+          return true;
+        }
+        let inside = false;
+        for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i, i += 1) {
+          const xi = polygon[i].x;
+          const yi = polygon[i].y;
+          const xj = polygon[j].x;
+          const yj = polygon[j].y;
+          const intersects = yi > point.y !== yj > point.y &&
+            point.x < ((xj - xi) * (point.y - yi)) / (yj - yi + Number.EPSILON) + xi;
+          if (intersects) {
+            inside = !inside;
+          }
+        }
+        return inside;
+      }
+
+      function distance(a, b) {
+        return Math.hypot(a.cx - b.cx, a.cy - b.cy);
+      }
+
+      function eventRow(event, trackId, details) {
+        const row = {
+          time: elements.video.currentTime.toFixed(2),
+          event,
+          track_id: trackId,
+          details
+        };
+        state.events.push(row);
+        if (state.events.length > 500) {
+          state.events.shift();
+        }
+      }
+
+      function closeTrack(track, currentTime) {
+        if (!track || track.closed) {
+          return;
+        }
+        track.closed = true;
+        const wasFront = track.bestPosition <= 2;
+        const trackedLongEnough = currentTime - track.firstSeen > 0.8;
+        if (wasFront && trackedLongEnough) {
+          if (state.lastExitTime !== null) {
+            const serviceTime = Math.max(0, currentTime - state.lastExitTime);
+            if (serviceTime > 0.4 && serviceTime < 90) {
+              state.emaService = state.emaService === null ? serviceTime : 0.72 * state.emaService + 0.28 * serviceTime;
+              eventRow("accepted_gap", track.id, `${serviceTime.toFixed(1)}s`);
+            }
+          }
+          state.lastExitTime = currentTime;
+        }
+        if (track.predictionSavedAt !== null) {
+          const actualRemaining = Math.max(0.1, currentTime - track.predictionSavedAt);
+          const error = Math.abs(track.predictionValue - actualRemaining);
+          const accuracy = Math.max(0, (1 - error / actualRemaining) * 100);
+          state.accuracies.push(accuracy);
+          eventRow("prediction_result", track.id, `${accuracy.toFixed(1)}%`);
+        }
+        eventRow("exit", track.id, `wait ${formatSeconds(currentTime - track.firstSeen)}`);
+        state.tracks.delete(track.id);
+      }
+
+      function updateTracks(detections, currentTime) {
+        const maxDistance = Math.max(80, elements.preview.width * 0.09);
+        const activeTracks = Array.from(state.tracks.values()).filter((track) => !track.closed);
+        const unmatched = new Set(activeTracks.map((track) => track.id));
+        const matched = new Set();
+
+        for (const detection of detections) {
+          let bestTrack = null;
+          let bestDistance = Infinity;
+          for (const track of activeTracks) {
+            if (!unmatched.has(track.id) || matched.has(track.id)) {
+              continue;
+            }
+            const candidateDistance = distance(track, detection);
+            if (candidateDistance < bestDistance) {
+              bestDistance = candidateDistance;
+              bestTrack = track;
+            }
+          }
+
+          if (bestTrack && bestDistance <= maxDistance) {
+            Object.assign(bestTrack, detection, {
+              lastSeen: currentTime,
+              missed: 0,
+              score: detection.score
+            });
+            unmatched.delete(bestTrack.id);
+            matched.add(bestTrack.id);
+          } else {
+            const id = state.nextId;
+            state.nextId += 1;
+            const track = {
+              id,
+              ...detection,
+              firstSeen: currentTime,
+              lastSeen: currentTime,
+              missed: 0,
+              score: detection.score,
+              bestPosition: 99,
+              predictionSavedAt: null,
+              predictionValue: 0,
+              closed: false
+            };
+            state.tracks.set(id, track);
+            state.totalSeen.add(id);
+            eventRow("entry", id, `score ${detection.score.toFixed(2)}`);
+          }
+        }
+
+        for (const id of unmatched) {
+          const track = state.tracks.get(id);
+          if (!track) {
+            continue;
+          }
+          track.missed += 1;
+          if (track.missed >= 5 || currentTime - track.lastSeen > 2.2) {
+            closeTrack(track, currentTime);
+          }
+        }
+      }
+
+      function sortByQueueFront(tracks) {
+        const front = elements.frontSelect.value;
+        return tracks.sort((a, b) => {
+          if (front === "top") {
+            return a.cy - b.cy;
+          }
+          if (front === "left") {
+            return a.cx - b.cx;
+          }
+          if (front === "right") {
+            return b.cx - a.cx;
+          }
+          return b.cy - a.cy;
+        });
+      }
+
+      function refreshActiveRows() {
+        const currentTime = elements.video.currentTime || 0;
+        const tracks = Array.from(state.tracks.values())
+          .filter((track) => !track.closed && currentTime - track.lastSeen <= 2.5);
+        const ordered = sortByQueueFront(tracks);
+        state.activeRows = ordered.map((track, index) => {
+          const position = index + 1;
+          track.bestPosition = Math.min(track.bestPosition, position);
+          const wait = Math.max(0, currentTime - track.firstSeen);
+          let predictionText = "Learning";
+          let predictionValue = null;
+          if (state.emaService !== null) {
+            predictionValue = position <= 1 ? 0 : (position - 1) * state.emaService;
+            predictionText = formatSeconds(predictionValue);
+            if (position >= 2 && track.predictionSavedAt === null) {
+              track.predictionSavedAt = currentTime;
+              track.predictionValue = predictionValue;
+              eventRow("prediction_saved", track.id, `position ${position}, ${predictionText}`);
+            }
+          } else if (position === 1) {
+            predictionText = "0s";
+          }
+          return {
+            track,
+            position,
+            wait,
+            waitText: formatSeconds(wait),
+            predictionText,
+            predictionValue
+          };
+        });
+      }
+
+      function updateMetrics() {
+        const currentTime = elements.video.currentTime || 0;
+        refreshActiveRows();
+        const waits = state.activeRows.map((row) => row.wait);
+        const avgWait = waits.length ? waits.reduce((sum, value) => sum + value, 0) / waits.length : 0;
+        const avgAccuracy = state.accuracies.length
+          ? state.accuracies.reduce((sum, value) => sum + value, 0) / state.accuracies.length
+          : null;
+        elements.queueMetric.textContent = state.activeRows.length;
+        elements.avgWaitMetric.textContent = formatSeconds(avgWait);
+        elements.fpsMetric.textContent = state.fps.toFixed(1);
+        elements.serviceMetric.textContent = state.emaService === null ? "Learning" : formatSeconds(state.emaService);
+        elements.seenMetric.textContent = state.totalSeen.size;
+        elements.accuracyMetric.textContent = avgAccuracy === null ? "N/A" : `${avgAccuracy.toFixed(1)}%`;
+        elements.timeMetric.textContent = formatSeconds(currentTime);
+        elements.trackStatus.textContent = `${state.activeRows.length} tracks`;
+        elements.eventStatus.textContent = `${state.events.length} events`;
+        elements.runtimeText.textContent = state.running
+          ? `Processing at ${state.fps.toFixed(1)} FPS`
+          : state.fileLoaded
+            ? "Ready"
+            : "Load a video to begin.";
+      }
+
+      function updateTables() {
+        elements.activeBody.innerHTML = "";
+        for (const row of state.activeRows) {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${row.track.id}</td>
+            <td>${row.position}</td>
+            <td>${row.waitText}</td>
+            <td>${row.predictionText}</td>
+            <td>${row.track.score.toFixed(2)}</td>
+          `;
+          elements.activeBody.appendChild(tr);
+        }
+        elements.activeEmpty.style.display = state.activeRows.length ? "none" : "block";
+
+        elements.eventsBody.innerHTML = "";
+        for (const row of state.events.slice(-80).reverse()) {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${row.time}s</td>
+            <td>${row.event}</td>
+            <td>${row.track_id}</td>
+            <td>${row.details}</td>
+          `;
+          elements.eventsBody.appendChild(tr);
+        }
+        elements.eventsEmpty.style.display = state.events.length ? "none" : "block";
+        updateButtons();
+      }
+
+      function recordHistory(now) {
+        const currentTime = elements.video.currentTime || 0;
+        if (now - state.lastHistoryAt < 750) {
+          return;
+        }
+        const waits = state.activeRows.map((row) => row.wait);
+        const avgWait = waits.length ? waits.reduce((sum, value) => sum + value, 0) / waits.length : 0;
+        state.history.push({
+          updated_at: new Date().toISOString(),
+          video_time: currentTime.toFixed(2),
+          queue_length: state.activeRows.length,
+          avg_wait_time: avgWait.toFixed(2),
+          ema_service_time: state.emaService === null ? "" : state.emaService.toFixed(2),
+          processing_fps: state.fps.toFixed(2),
+          total_people_seen: state.totalSeen.size
+        });
+        if (state.history.length > 600) {
+          state.history.shift();
+        }
+        state.lastHistoryAt = now;
+      }
+
+      async function processFrame(now) {
+        if (!state.model || state.processing || !state.running || elements.video.paused || elements.video.ended) {
+          return;
+        }
+        const interval = Number(elements.interval.value);
+        if (now - state.lastInferenceAt < interval) {
+          return;
+        }
+        state.processing = true;
+        const startedAt = performance.now();
+        ctx.drawImage(elements.video, 0, 0, elements.preview.width, elements.preview.height);
+        try {
+          const predictions = await state.model.detect(elements.preview, 20);
+          const confidence = Number(elements.confidence.value);
+          const detections = predictions
+            .filter((prediction) => prediction.class === "person" && prediction.score >= confidence)
+            .map((prediction) => {
+              const [x, y, w, h] = prediction.bbox;
+              return {
+                x,
+                y,
+                w,
+                h,
+                cx: x + w / 2,
+                cy: y + h / 2,
+                score: prediction.score
+              };
+            })
+            .filter((detection) => pointInPolygon({ x: detection.cx, y: detection.cy }, state.roi));
+          updateTracks(detections, elements.video.currentTime || 0);
+          state.lastFrameDuration = performance.now() - startedAt;
+          state.fps = state.lastFrameDuration > 0 ? 1000 / state.lastFrameDuration : state.fps;
+          state.lastInferenceAt = now;
+        } catch (error) {
+          setStatus(`Detection error: ${error.message}`, "Detector error");
+          state.running = false;
+        } finally {
+          state.processing = false;
+        }
+      }
+
+      async function loop(now) {
+        if (!state.running) {
+          return;
+        }
+        if (elements.video.ended) {
+          state.running = false;
+          setStatus("Processing finished", "Detector ready");
+          updateButtons();
+          return;
+        }
+        await processFrame(now);
+        updateMetrics();
+        drawFrame();
+        updateTables();
+        recordHistory(now);
+        drawCharts();
+        requestAnimationFrame(loop);
+      }
+
+      function drawLineChart(canvas, rows, key, color) {
+        const dpr = window.devicePixelRatio || 1;
+        const rect = canvas.getBoundingClientRect();
+        const width = Math.max(320, Math.floor(rect.width * dpr));
+        const height = Math.max(160, Math.floor(rect.height * dpr));
+        if (canvas.width !== width || canvas.height !== height) {
+          canvas.width = width;
+          canvas.height = height;
+        }
+        const chartCtx = canvas.getContext("2d");
+        chartCtx.clearRect(0, 0, width, height);
+        chartCtx.fillStyle = "#111721";
+        chartCtx.fillRect(0, 0, width, height);
+        chartCtx.strokeStyle = "#2c3543";
+        chartCtx.lineWidth = 1 * dpr;
+        const pad = 34 * dpr;
+        chartCtx.beginPath();
+        chartCtx.moveTo(pad, 16 * dpr);
+        chartCtx.lineTo(pad, height - pad);
+        chartCtx.lineTo(width - 12 * dpr, height - pad);
+        chartCtx.stroke();
+        const points = rows.slice(-100).map((row) => Number(row[key]) || 0);
+        const maxValue = Math.max(1, ...points);
+        chartCtx.fillStyle = "#aab6c7";
+        chartCtx.font = `${11 * dpr}px Segoe UI, Arial`;
+        chartCtx.fillText(maxValue.toFixed(key === "queue_length" ? 0 : 1), 8 * dpr, 22 * dpr);
+        chartCtx.fillText("0", 12 * dpr, height - pad - 4 * dpr);
+        if (points.length < 2) {
+          return;
+        }
+        chartCtx.strokeStyle = color;
+        chartCtx.lineWidth = 2.5 * dpr;
+        chartCtx.beginPath();
+        points.forEach((value, index) => {
+          const x = pad + (index / (points.length - 1)) * (width - pad - 16 * dpr);
+          const y = height - pad - (value / maxValue) * (height - pad - 20 * dpr);
+          if (index === 0) {
+            chartCtx.moveTo(x, y);
+          } else {
+            chartCtx.lineTo(x, y);
+          }
+        });
+        chartCtx.stroke();
+      }
+
+      function drawCharts() {
+        drawLineChart(elements.queueChart, state.history, "queue_length", "#0f8b8d");
+        drawLineChart(elements.waitChart, state.history, "avg_wait_time", "#f2a541");
+      }
+
+      function toCsv(rows) {
+        if (!rows.length) {
+          return "";
+        }
+        const headers = Object.keys(rows[0]);
+        const escapeValue = (value) => `"${String(value ?? "").replaceAll('"', '""')}"`;
+        return [headers.join(","), ...rows.map((row) => headers.map((header) => escapeValue(row[header])).join(","))].join("\n");
+      }
+
+      function downloadCsv(filename, rows) {
+        const csv = toCsv(rows);
+        const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(url);
+      }
+
+      elements.videoFile.addEventListener("change", (event) => {
+        const file = event.target.files && event.target.files[0];
+        if (file) {
+          loadVideoFile(file);
+        }
+      });
+
+      elements.startBtn.addEventListener("click", async () => {
+        if (!state.fileLoaded) {
+          return;
+        }
+        try {
+          await loadModel();
+          state.running = true;
+          await elements.video.play();
+          setStatus("Processing video", "Detector ready");
+          updateButtons();
+          requestAnimationFrame(loop);
+        } catch (error) {
+          setStatus(`Startup error: ${error.message}`, "Detector error");
+          state.running = false;
+          updateButtons();
+        }
+      });
+
+      elements.pauseBtn.addEventListener("click", () => {
+        state.running = false;
+        elements.video.pause();
+        setStatus("Paused", state.model ? "Detector ready" : "Detector idle");
+        updateButtons();
+      });
+
+      elements.resetBtn.addEventListener("click", () => {
+        elements.video.pause();
+        elements.video.currentTime = 0;
+        resetRuntimeData(true);
+        fitCanvasToVideo();
+        setStatus("Reset complete", state.model ? "Detector ready" : "Detector idle");
+        drawFrame();
+      });
+
+      elements.drawRoiBtn.addEventListener("click", () => {
+        state.roiMode = true;
+        state.roi = [];
+        elements.roiStatus.textContent = "ROI: select 4 points";
+        setStatus("Select 4 ROI points on the preview", state.model ? "Detector ready" : "Detector idle");
+        drawFrame();
+      });
+
+      elements.fullRoiBtn.addEventListener("click", setFullRoi);
+
+      elements.preview.addEventListener("click", (event) => {
+        if (!state.roiMode || state.running) {
+          return;
+        }
+        const rect = elements.preview.getBoundingClientRect();
+        const x = ((event.clientX - rect.left) / rect.width) * elements.preview.width;
+        const y = ((event.clientY - rect.top) / rect.height) * elements.preview.height;
+        state.roi.push({ x, y });
+        if (state.roi.length === 4) {
+          state.roiMode = false;
+          elements.roiStatus.textContent = "ROI: custom";
+          setStatus("Custom ROI set", state.model ? "Detector ready" : "Detector idle");
+        }
+        drawFrame();
+      });
+
+      elements.confidence.addEventListener("input", () => {
+        elements.confidenceText.textContent = Number(elements.confidence.value).toFixed(2);
+      });
+
+      elements.interval.addEventListener("input", () => {
+        elements.intervalText.textContent = `${elements.interval.value} ms`;
+      });
+
+      elements.frontSelect.addEventListener("change", () => {
+        updateMetrics();
+        updateTables();
+        drawFrame();
+      });
+
+      elements.downloadHistoryBtn.addEventListener("click", () => downloadCsv("queue_history.csv", state.history));
+      elements.downloadEventsBtn.addEventListener("click", () => downloadCsv("queue_events.csv", state.events));
+      window.addEventListener("resize", drawCharts);
+
+      resetRuntimeData(false);
+      setFullRoi();
+      updateButtons();
+    </script>
   </body>
 </html>
