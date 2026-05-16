@@ -1,0 +1,12 @@
+.venv
+.vscode
+.git
+__pycache__
+output
+uploads
+dataset_videos
+models
+*.log
+*.exe
+*.pyc
+a.cpp
